@@ -8,22 +8,19 @@ namespace admitere_facultate_C_
         public LogIn()
         {
             InitializeComponent();
-            this.ClientSize = new Size(400, 250);
-            this.StartPosition = FormStartPosition.CenterScreen;
+            FormHelper.ConfigureForm(this,new Size(400, 250), Size.Empty, true);
             textBoxPassword.PasswordChar = '*';
         }
 
         private void LogIn_Load(object sender, EventArgs e)
         {
             // Centreaza tableLayoutPanel1 in form
-            tableLayoutPanel1.Left = (this.ClientSize.Width - tableLayoutPanel1.Width) / 2;
-            tableLayoutPanel1.Top = (this.ClientSize.Height - tableLayoutPanel1.Height) / 2;
+            LayoutHelper.ComponentCenter(tableLayoutPanel1);
 
             // Re-centreaza tableLayoutPanel1 la redimensionare
             this.Resize += (s, ev) =>
             {
-                tableLayoutPanel1.Left = (this.ClientSize.Width - tableLayoutPanel1.Width) / 2;
-                tableLayoutPanel1.Top = (this.ClientSize.Height - tableLayoutPanel1.Height) / 2;
+                LayoutHelper.ComponentCenter(tableLayoutPanel1);
             };
         }
 

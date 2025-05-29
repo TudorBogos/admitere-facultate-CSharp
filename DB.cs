@@ -2,6 +2,9 @@
 using System;
 using System.Windows.Forms;
 
+/// <summary>
+/// Clasa pentru deschiderea si inchiderea conexiunii
+/// </summary>
 public static class DB
 {
     private static MySqlConnection conn = null;

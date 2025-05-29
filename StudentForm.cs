@@ -8,27 +8,30 @@ namespace admitere_facultate_C_
         public StudentForm()
         {
             InitializeComponent();
-            this.ClientSize = new Size(1200, 700);
-            this.MinimumSize = new Size(800, 500);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            // Center label horizontally and position it 114px (~3cm) from top
+            FormHelper.ConfigureForm(this, new Size(1200, 700), new Size(800, 500), true);
+
             labelTitle.Text = "Situația Admitere";
             labelTitle.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             labelTitle.AutoSize = true;
-            labelTitle.Top = 114;
-            PositionComponents();
+            labelTitle.Top = 20;
 
             this.Resize += (s, ev) =>
             {
-                labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
-                dataGridView1.Left = (this.ClientSize.Width - dataGridView1.Width) / 2;
-                dataGridView1.Top = labelTitle.Bottom + 20;
-                button1.Left = (this.ClientSize.Width - button1.Width) / 2;
-                button1.Top = dataGridView1.Bottom + 20;
+                LayoutHelper.CenterHorizontally(labelTitle);
+                LayoutHelper.ComponentBelow(dataGridView1, labelTitle);
+                LayoutHelper.ComponentBelow(button1, dataGridView1);
             };
+        }
+
+        private void StudentForm_Load(object sender, EventArgs e)
+        {
 
             LoadAdmissionStatus();
+            LayoutHelper.CenterHorizontally(labelTitle);
+            LayoutHelper.ComponentBelow(dataGridView1, labelTitle);
+            LayoutHelper.ComponentBelow(button1, dataGridView1);
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -44,22 +47,7 @@ namespace admitere_facultate_C_
                 }
             }
         }
-
-        private void StudentForm_Load(object sender, EventArgs e)
-        {
-            PositionComponents();
-        }
-
         //Functii custom
-
-        private void PositionComponents()
-        {
-            labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
-            dataGridView1.Left = (this.ClientSize.Width - dataGridView1.Width) / 2;
-            dataGridView1.Top = labelTitle.Bottom + 20;
-            button1.Left = (this.ClientSize.Width - button1.Width) / 2;
-            button1.Top = dataGridView1.Bottom + 20;
-        }
 
         private void LoadAdmissionStatus()
         {
@@ -106,7 +94,7 @@ namespace admitere_facultate_C_
                     totalWidth += col.Width;
                 }
                 int scrollbarWidth = SystemInformation.VerticalScrollBarWidth;
-                dataGridView1.Width = totalWidth + scrollbarWidth + 25;
+                dataGridView1.Width = totalWidth + scrollbarWidth + 15;
             }
             catch (Exception ex)
             {

@@ -6,8 +6,12 @@ using QuestPDF.Drawing;
 using QuestPDF.Elements;
 using System.Collections.Generic;
 
+
 namespace admitere_facultate_C_
 {
+    /// <summary>
+    /// Clasa pentru export pdf si CSV
+    /// </summary>
 
     public static class ExportUtility
     {
