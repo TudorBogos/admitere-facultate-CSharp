@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,12 +14,12 @@ namespace admitere_facultate_C_
         /// <summary>
         /// Centers a control in its parent container (form or panel).
         /// </summary>
-        public static void ComponentCenter(Control c)
+        public static void ComponentCenter(Control c,int spacing=0)
         {
             if (c.Parent == null) return;
 
             c.Left = (c.Parent.ClientSize.Width - c.Width) / 2;
-            c.Top = (c.Parent.ClientSize.Height - c.Height) / 2;
+            c.Top = (c.Parent.ClientSize.Height - c.Height) / 2 + spacing;
         }
 
         /// <summary>
@@ -39,6 +40,13 @@ namespace admitere_facultate_C_
         {
             if (c.Parent != null)
                 c.Left = (c.Parent.ClientSize.Width - c.Width) / 2;
+        }
+
+        public static void AutoResizeDataGridView(DataGridView grid)
+        {
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            grid.RowHeadersVisible = false;
+            grid.ScrollBars = ScrollBars.Vertical;
         }
 
     }

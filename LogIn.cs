@@ -15,12 +15,12 @@ namespace admitere_facultate_C_
         private void LogIn_Load(object sender, EventArgs e)
         {
             // Centreaza tableLayoutPanel1 in form
-            LayoutHelper.ComponentCenter(tableLayoutPanel1);
+            LayoutHelper.ComponentCenter(tableLayoutPanel1,20);
 
             // Re-centreaza tableLayoutPanel1 la redimensionare
             this.Resize += (s, ev) =>
             {
-                LayoutHelper.ComponentCenter(tableLayoutPanel1);
+                LayoutHelper.ComponentCenter(tableLayoutPanel1,20);
             };
         }
 

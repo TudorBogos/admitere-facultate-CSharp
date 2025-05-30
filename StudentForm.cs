@@ -25,7 +25,7 @@ namespace admitere_facultate_C_
 
         private void StudentForm_Load(object sender, EventArgs e)
         {
-
+            StudentDB.UpdateAdmitereStatus();
             LoadAdmissionStatus();
             LayoutHelper.CenterHorizontally(labelTitle);
             LayoutHelper.ComponentBelow(dataGridView1, labelTitle);
