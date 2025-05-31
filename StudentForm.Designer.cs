@@ -31,7 +31,10 @@
             labelTitle = new Label();
             dataGridView1 = new DataGridView();
             button1 = new Button();
+            button2 = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // labelTitle
@@ -61,7 +64,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(593, 388);
+            button1.Location = new Point(3, 3);
             button1.Name = "button1";
             button1.Size = new Size(95, 23);
             button1.TabIndex = 2;
@@ -69,18 +72,41 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(104, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(95, 23);
+            button2.TabIndex = 3;
+            button2.Text = "Export to CSV";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            flowLayoutPanel1.Controls.Add(button1);
+            flowLayoutPanel1.Controls.Add(button2);
+            flowLayoutPanel1.Location = new Point(527, 320);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(202, 29);
+            flowLayoutPanel1.TabIndex = 4;
+            flowLayoutPanel1.WrapContents = false;
+            // 
             // StudentForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1317, 630);
-            Controls.Add(button1);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(dataGridView1);
             Controls.Add(labelTitle);
             Name = "StudentForm";
             Text = "Admitere Status";
             Load += StudentForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -91,5 +117,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private DataGridView dataGridView1;
         private Button button1;
+        private Button button2;
     }
 }

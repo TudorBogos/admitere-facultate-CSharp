@@ -20,5 +20,18 @@ namespace admitere_facultate_C_
             if (centerOnScreen)
                 form.StartPosition = FormStartPosition.CenterScreen;
         }
+
+        /// <summary>
+        /// Configures a UserControl with specified client size, minimum size, and optional center on screen setting.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="clientSize"></param>
+        /// <param name="minSize"></param>
+        /// <param name="centerOnScreen"></param>
+        public static void ConfigureControl(UserControl control, Size clientSize, Size minSize)
+        {
+            control.ClientSize = clientSize;
+            control.MinimumSize = minSize;
+        }
     }
 }

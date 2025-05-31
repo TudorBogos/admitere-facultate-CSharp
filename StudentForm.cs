@@ -19,7 +19,7 @@ namespace admitere_facultate_C_
             {
                 LayoutHelper.CenterHorizontally(labelTitle);
                 LayoutHelper.ComponentBelow(dataGridView1, labelTitle);
-                LayoutHelper.ComponentBelow(button1, dataGridView1);
+                LayoutHelper.ComponentBelow(flowLayoutPanel1, dataGridView1);
             };
         }
 
@@ -29,7 +29,7 @@ namespace admitere_facultate_C_
             LoadAdmissionStatus();
             LayoutHelper.CenterHorizontally(labelTitle);
             LayoutHelper.ComponentBelow(dataGridView1, labelTitle);
-            LayoutHelper.ComponentBelow(button1, dataGridView1);
+            LayoutHelper.ComponentBelow(flowLayoutPanel1, dataGridView1);
         }
 
 
@@ -38,12 +38,27 @@ namespace admitere_facultate_C_
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
                 sfd.Filter = "PDF files (*.pdf)|*.pdf";
-                sfd.Title = "Salvează PDF-ul";
-                sfd.FileName = "Situația_Admitere.pdf";
+                sfd.Title = "Salveaza PDF-ul";
+                sfd.FileName = "Situatia_Admitere.pdf";
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     ExportUtility.ExportDataGridViewToPdf(dataGridView1, sfd.FileName, "Situația Admiterii");
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "CSV files (*.csv)|*.csv";
+                sfd.Title = "Salveaza CSV-ul";
+                sfd.FileName = "Situatia_Admitere.csv";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ExportUtility.ExportDataGridViewToCsv(dataGridView1, sfd.FileName);
                 }
             }
         }

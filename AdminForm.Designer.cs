@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            formPanel = new Panel();
             tabControl1 = new TabControl();
             tabPageStudenti = new TabPage();
-            tabPageFacultati = new TabPage();
-            tabPageAdmitereStatus = new TabPage();
             dataGridView1 = new DataGridView();
+            tabPageFacultati = new TabPage();
             dataGridView2 = new DataGridView();
+            tabPageAdmitereStatus = new TabPage();
             dataGridView3 = new DataGridView();
+            formPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageStudenti.SuspendLayout();
-            tabPageFacultati.SuspendLayout();
-            tabPageAdmitereStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPageFacultati.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            tabPageAdmitereStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
             SuspendLayout();
             // 
@@ -68,14 +68,6 @@
             splitContainer1.Size = new Size(1311, 636);
             splitContainer1.SplitterDistance = 159;
             splitContainer1.TabIndex = 1;
-            // 
-            // formPanel
-            // 
-            formPanel.Dock = DockStyle.Fill;
-            formPanel.Location = new Point(0, 0);
-            formPanel.Name = "formPanel";
-            formPanel.Size = new Size(1311, 159);
-            formPanel.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -99,6 +91,20 @@
             tabPageStudenti.Text = "Studenti";
             tabPageStudenti.UseVisualStyleBackColor = true;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(3, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(449, 195);
+            dataGridView1.TabIndex = 0;
+            // 
             // tabPageFacultati
             // 
             tabPageFacultati.Controls.Add(dataGridView2);
@@ -109,6 +115,16 @@
             tabPageFacultati.TabIndex = 1;
             tabPageFacultati.Text = "Facultati";
             tabPageFacultati.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.AllowUserToOrderColumns = true;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(3, 3);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.Size = new Size(449, 195);
+            dataGridView2.TabIndex = 0;
             // 
             // tabPageAdmitereStatus
             // 
@@ -121,26 +137,6 @@
             tabPageAdmitereStatus.Text = "Admitere Status";
             tabPageAdmitereStatus.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(449, 195);
-            dataGridView1.TabIndex = 0;
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.AllowUserToOrderColumns = true;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 3);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.Size = new Size(449, 195);
-            dataGridView2.TabIndex = 0;
-            // 
             // dataGridView3
             // 
             dataGridView3.AllowUserToOrderColumns = true;
@@ -150,6 +146,15 @@
             dataGridView3.Name = "dataGridView3";
             dataGridView3.Size = new Size(449, 195);
             dataGridView3.TabIndex = 0;
+            // 
+            // formPanel
+            // 
+            formPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            formPanel.Dock = DockStyle.Fill;
+            formPanel.Location = new Point(0, 0);
+            formPanel.Name = "formPanel";
+            formPanel.Size = new Size(1311, 159);
+            formPanel.TabIndex = 0;
             // 
             // AdminForm
             // 
@@ -166,10 +171,10 @@
             splitContainer1.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPageStudenti.ResumeLayout(false);
-            tabPageFacultati.ResumeLayout(false);
-            tabPageAdmitereStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPageFacultati.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            tabPageAdmitereStatus.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
             ResumeLayout(false);
         }
@@ -181,9 +186,9 @@
         private TabPage tabPageStudenti;
         private TabPage tabPageFacultati;
         private TabPage tabPageAdmitereStatus;
-        private Panel formPanel;
         private DataGridView dataGridView1;
         private DataGridView dataGridView2;
         private DataGridView dataGridView3;
+        private Panel formPanel;
     }
 }

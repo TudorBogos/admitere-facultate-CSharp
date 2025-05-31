@@ -5,6 +5,7 @@ using QuestPDF.Infrastructure;
 using QuestPDF.Drawing;
 using QuestPDF.Elements;
 using System.Collections.Generic;
+using System.Text;
 
 
 namespace admitere_facultate_C_
@@ -15,7 +16,12 @@ namespace admitere_facultate_C_
 
     public static class ExportUtility
     {
-
+        /// <summary>
+        /// Exporta un DataGridView in format PDF.
+        /// </summary>
+        /// <param name="dgv">Controlul DataGridView ce contine datele</param>
+        /// <param name="filePath">Calea fisierului CSV de iesire</param>
+        /// <param name="title">Titlul ce va aparea in fisierul PDF</param>
         public static void ExportDataGridViewToPdf(DataGridView dgv, string filePath, string title = "Export")
         {
             // Extract data from DataGridView
@@ -89,6 +95,61 @@ namespace admitere_facultate_C_
 
             MessageBox.Show("Exported to PDF successfully!");
         }
+
+        /// <summary>
+        /// Exporta un DataGridView in format CSV.
+        /// </summary>
+        /// <param name="dgv">Controlul DataGridView ce contine datele</param>
+        /// <param name="filePath">Calea fisierului CSV de iesire</param>
+        public static void ExportDataGridViewToCsv(DataGridView dgv, string filePath)
+        {
+            try
+            {
+                using (var writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                {
+                    // Scrie header-ul
+                    List<string> headers = new List<string>();
+                    foreach (DataGridViewColumn column in dgv.Columns)
+                    {
+                        headers.Add(EscapeCsvValue(column.HeaderText));
+                    }
+                    writer.WriteLine(string.Join(",", headers));
+
+                    // Scrie randurile
+                    foreach (DataGridViewRow row in dgv.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        List<string> values = new List<string>();
+                        foreach (DataGridViewCell cell in row.Cells)
+                        {
+                            values.Add(EscapeCsvValue(cell.Value?.ToString() ?? ""));
+                        }
+                        writer.WriteLine(string.Join(",", values));
+                    }
+                }
+
+                MessageBox.Show("Exportat cu succes in CSV!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Eroare la exportul CSV: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Formateaza valorile pentru CSV (ex. virgule, ghilimele).
+        /// </summary>
+        private static string EscapeCsvValue(string value)
+        {
+            if (value.Contains(",") || value.Contains("\"") || value.Contains("\n"))
+            {
+                value = value.Replace("\"", "\"\"");
+                return $"\"{value}\"";
+            }
+            return value;
+        }
+
     }
 
 }

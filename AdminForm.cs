@@ -12,12 +12,23 @@ namespace admitere_facultate_C_
 {
     public partial class AdminForm : Form
     {
+        private StudentControl studentControl;
         public AdminForm()
         {
             InitializeComponent();
-            FormHelper.ConfigureForm(this, new Size(1200, 700), new Size(800, 500), true);
+            FormHelper.ConfigureForm(this, new Size(1320, 700), new Size(1320, 700), true);
             splitContainer1.Dock = DockStyle.Fill;
             tabControl1.Dock = DockStyle.Fill;
+
+            studentControl = new StudentControl();
+            studentControl.Dock = DockStyle.Fill;
+            studentControl.Visible = true;
+            formPanel.Controls.Add(studentControl);
+
+            studentControl.TargetGrid = dataGridView1;
+
+
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -26,7 +37,7 @@ namespace admitere_facultate_C_
             {
                 DB.openConn();
 
-                dataGridView1.DataSource= Selects.GetStudenti();
+                dataGridView1.DataSource = Selects.GetStudenti();
                 dataGridView2.DataSource = Selects.GetFacultati();
                 dataGridView3.DataSource = Selects.GetAdmitereStatus();
 
@@ -41,6 +52,30 @@ namespace admitere_facultate_C_
             finally
             {
                 DB.closeConn();
+            }
+        }
+
+        /// <summary>
+        /// Handles the tab selection change event to show the appropriate user control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Optional: clear or hide all controls first
+            foreach (Control ctrl in formPanel.Controls)
+                ctrl.Visible = false;
+
+            switch (tabControl1.SelectedTab.Name)
+            {
+                case "tabPageStudenti":
+                    studentControl.Visible = true;
+                    break;
+
+                    // If you add other user controls like FacultateControl, etc:
+                    // case "tabFacultati":
+                    //     facultateControl.Visible = true;
+                    //     break;
             }
         }
     }
