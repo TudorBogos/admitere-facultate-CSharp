@@ -159,39 +159,24 @@ namespace admitere_facultate_C_
                 DB.closeConn();
             }
         }
-        /// <summary>
-        /// Updatează statusurile de admitere pentru toți studenții.
-        /// </summary>
-        public static void UpdateAdmitereStatus()
-        {
-            string sql = @"
-            UPDATE admitere_status a
-            JOIN (
-                SELECT
-                    a.idStudent,
-                    a.idFacultate,
-                    IF(
-                        RANK() OVER (PARTITION BY a.idFacultate ORDER BY s.Nota DESC) <= f.numar_locuri,
-                        'admis',
-                        'respins'
-                    ) AS new_status
-                FROM admitere_status a
-                JOIN facultate f ON a.idFacultate = f.idFacultate
-                JOIN student s ON a.idStudent = s.idStudent
-            ) ranked_status
-            ON a.idStudent = ranked_status.idStudent AND a.idFacultate = ranked_status.idFacultate
-            SET a.status = ranked_status.new_status;
-        ";
 
+        /// <summary>
+        /// Șterge un student din baza de date pe baza ID-ului.
+        /// </summary>
+        /// <param name="id"></param>
+        public static void DeleteStudent(int id)
+        {
             try
             {
                 DB.openConn();
+                var sql = "DELETE FROM student WHERE idStudent = @id";
                 using var cmd = new MySqlCommand(sql, DB.GetConnection());
-                cmd.ExecuteNonQuery(); // you can remove this return if you don't care about affected rows
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Eroare la actualizarea statusurilor de admitere: " + ex.Message);
+                MessageBox.Show("Eroare la stergerea studentului: " + ex.Message);
             }
             finally
             {

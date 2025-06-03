@@ -10,33 +10,19 @@ using System.Windows.Forms;
 
 namespace admitere_facultate_C_
 {
-    public partial class StudentControl : UserControl
+    public partial class FacultatiControl : UserControl
     {
         public DataGridView TargetGrid { get; set; }
 
-
-        public StudentControl()
+        public FacultatiControl()
         {
             InitializeComponent();
-            FormHelper.ConfigureControl(this, new Size(1311, 159), new Size(1311, 159));
-            Label[] labels = { label1, label2, label3, label4, label5, label6, label7 };
-            TextBox[] boxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7 };
-            this.Resize += (s, ev) =>
-            {
-
-                int currentTop = 0;
-                for (int i = 0; i < labels.Length; i++)
-                {
-                    LayoutHelper.ComponentCenter(labels[i], currentTop);
-                    LayoutHelper.ComponentBelow(boxes[i], labels[i], 10);
-                }
-            };
         }
 
-        private void StudentControl_Load(object sender, EventArgs e)
+        private void AdminControl_Load(object sender, EventArgs e)
         {
-            Label[] labels = { label1, label2, label3, label4, label5, label6, label7 };
-            TextBox[] boxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7 };
+            Label[] labels = { label1, label2, label3, label4 };
+            TextBox[] boxes = { textBox1, textBox2, textBox3, textBox4 };
 
             int currentTop = 0;
             for (int i = 0; i < labels.Length; i++)
@@ -54,11 +40,11 @@ namespace admitere_facultate_C_
                 {
                     sfd.Filter = "PDF files (*.pdf)|*.pdf";
                     sfd.Title = "Salveaza PDF-ul";
-                    sfd.FileName = "Studenti.pdf";
+                    sfd.FileName = "Facultati.pdf";
 
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        ExportUtility.ExportDataGridViewToPdf(TargetGrid, sfd.FileName, "Baza de date studenti");
+                        ExportUtility.ExportDataGridViewToPdf(TargetGrid, sfd.FileName, "Baza de date facultati");
                     }
                 }
             }
@@ -77,7 +63,7 @@ namespace admitere_facultate_C_
                 {
                     sfd.Filter = "CSV files (*.csv)|*.csv";
                     sfd.Title = "Salveaza CSV-ul";
-                    sfd.FileName = "Studenti.csv";
+                    sfd.FileName = "Facultati.csv";
 
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
@@ -94,14 +80,10 @@ namespace admitere_facultate_C_
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-            StudentDB.InsertStudent(
-                textBox2.Text.Trim(),
-                textBox3.Text.Trim(),
-                textBox4.Text.Trim(),
-                string.IsNullOrWhiteSpace(textBox5.Text) ? (decimal?)null : decimal.TryParse(textBox5.Text, out var nota) ? nota : null,
-                string.IsNullOrWhiteSpace(textBox6.Text) ? (int?)null : int.TryParse(textBox6.Text, out var facultateId) ? facultateId : null,
-                textBox7.Text.Trim()
+            FacultateDB.InsertFacultate(
+                textBox2.Text.Trim(), // Nume_Facultate
+                textBox3.Text.Trim(), // Adresa
+                string.IsNullOrWhiteSpace(textBox4.Text) ? (int?)null : int.Parse(textBox4.Text) // numar_locuri
             );
 
             AdminForm.UpdateAdmitereStatus();
@@ -109,27 +91,25 @@ namespace admitere_facultate_C_
             var adminForm = this.FindForm() as AdminForm;
             if (adminForm != null)
             {
-                adminForm.LoadStudenti();
+                adminForm.LoadFacultati();
                 adminForm.LoadAdmitereStatus();
             }
         }
+
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(textBox1.Text.Trim(), out int id))
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                MessageBox.Show("ID-ul studentului este invalid.");
+                MessageBox.Show("ID-ul facultății este necesar pentru actualizare.");
                 return;
             }
 
-            StudentDB.UpdateStudent(
-                id,
-                textBox2.Text.Trim(), // Nume
-                textBox3.Text.Trim(), // Prenume
-                textBox4.Text.Trim(), // CNP
-                string.IsNullOrWhiteSpace(textBox5.Text) ? (decimal?)null : decimal.TryParse(textBox5.Text, out var nota) ? nota : null,
-                string.IsNullOrWhiteSpace(textBox6.Text) ? (int?)null : int.TryParse(textBox6.Text, out var facultateId) ? facultateId : null,
-                textBox7.Text.Trim() // Optiune
+            FacultateDB.UpdateFacultate(
+                int.Parse(textBox1.Text),
+                textBox2.Text.Trim(), // Nume_Facultate
+                textBox3.Text.Trim(), // Adresa
+                string.IsNullOrWhiteSpace(textBox4.Text) ? (int?)null : int.Parse(textBox4.Text) // numar_locuri
             );
 
             AdminForm.UpdateAdmitereStatus();
@@ -137,25 +117,25 @@ namespace admitere_facultate_C_
             var adminForm = this.FindForm() as AdminForm;
             if (adminForm != null)
             {
-                adminForm.LoadStudenti();
+                adminForm.LoadFacultati();
                 adminForm.LoadAdmitereStatus();
             }
 
         }
 
+
         private void button5_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(textBox1.Text.Trim(), out int id))
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                MessageBox.Show("ID invalid pentru ștergere.");
+                MessageBox.Show("ID-ul facultății este necesar pentru ștergere.");
                 return;
             }
 
-            var confirm = MessageBox.Show("Ești sigur că vrei să ștergi acest student?", "Confirmare", MessageBoxButtons.YesNo);
+            var confirm = MessageBox.Show("Sigur vrei să ștergi această facultate?", "Confirmare", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
-                StudentDB.DeleteStudent(id);
-                MessageBox.Show("Student șters cu succes.");
+                FacultateDB.DeleteFacultate(int.Parse(textBox1.Text));
             }
 
             AdminForm.UpdateAdmitereStatus();
@@ -163,19 +143,17 @@ namespace admitere_facultate_C_
             var adminForm = this.FindForm() as AdminForm;
             if (adminForm != null)
             {
-                adminForm.LoadStudenti();
+                adminForm.LoadFacultati();
                 adminForm.LoadAdmitereStatus();
             }
-
         }
+
 
         private void button6_Click(object sender, EventArgs e)
         {
             var adminForm = this.FindForm() as AdminForm;
-            if (adminForm != null)
-            {
-                adminForm.LoadStudenti();
-            }
+            adminForm?.LoadFacultati();
+            adminForm?.LoadAdmitereStatus();
         }
     }
 }

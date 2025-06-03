@@ -25,7 +25,7 @@ namespace admitere_facultate_C_
 
         private void StudentForm_Load(object sender, EventArgs e)
         {
-            StudentDB.UpdateAdmitereStatus();
+            AdminForm.UpdateAdmitereStatus();
             LoadAdmissionStatus();
             LayoutHelper.CenterHorizontally(labelTitle);
             LayoutHelper.ComponentBelow(dataGridView1, labelTitle);
@@ -97,19 +97,7 @@ namespace admitere_facultate_C_
                 dataGridView1.DataSource = table;
 
                 // Resize/position
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                dataGridView1.RowHeadersVisible = false;
-                dataGridView1.Height = 300; // fixed height to force scrollbars if content exceeds
-                dataGridView1.ScrollBars = ScrollBars.Vertical;
-
-                int totalWidth = dataGridView1.RowHeadersVisible ? dataGridView1.RowHeadersWidth : 0;
-                foreach (DataGridViewColumn col in dataGridView1.Columns)
-                {
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                    totalWidth += col.Width;
-                }
-                int scrollbarWidth = SystemInformation.VerticalScrollBarWidth;
-                dataGridView1.Width = totalWidth + scrollbarWidth + 15;
+                LayoutHelper.ResizeDataGridView(dataGridView1, 300);
             }
             catch (Exception ex)
             {
